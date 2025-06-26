@@ -1,77 +1,107 @@
-# Niobi Software Developer Intern – Challenge 2: Treasury Movement Simulator
+### Niobi Software Developer Intern – Challenge 2: Treasury Movement Simulator
 
-## **Scope**
-Built a comprehensive multi-currency treasury management application simulating real-world fund movements across 10 virtual accounts in KES, USD, and NGN currencies. The system features professional-grade navigation, analytics dashboard, transfer management, and complete audit trails - designed to replicate actual treasury operations used by African fintech businesses.
+#### Scope
 
-## **Features Included**
-
-### **Core Treasury Functions**
-- **10 Virtual Accounts**: Pre-configured accounts (Mpesa_KES_1, Bank_USD_3, GTBank_NGN_1, etc.) with real-time balance tracking
-- **Multi-Currency Transfers**: Complete transfer interface with from/to account selection, amount input, and optional notes
-- **FX Conversion Engine**: Static exchange rates with automatic currency conversion and real-time rate display
-- **Balance Validation**: Prevents overdrafts by checking sufficient source funds before execution
-- **Transaction Audit Trail**: Complete logging system with timestamps, amounts, FX rates, and transaction status
-
-### **Professional Enhancements**
-- **Analytics Dashboard**: Currency summary cards showing total balances per currency with visual indicators
-- **Sidebar Navigation**: Professional layout with dedicated sections (Dashboard, Accounts, Transfers, Settings)
-- **Advanced Filtering**: Filter transaction logs by account name or currency type
-- **Future-Dated Transfers**: UI support for scheduled transfers with "Scheduled" status tracking
-- **User Preferences**: Dark/light mode toggle for professional user experience
-- **Real-Time FX Display**: Shows conversion calculations during transfer setup process
-
-### **Technical Implementation**
-- **Responsive Design**: Mobile-first approach using Tailwind CSS with clean, modern interface
-- **React Architecture**: Functional components with hooks, optimized state management, and efficient re-rendering
-- **Form Validation**: Client-side validation with user-friendly error messages and real-time feedback
-- **Professional UI/UX**: Lucide React icons, smooth transitions, and enterprise-grade visual design
-
-## **Assumptions Made**
-
-### **Exchange Rates**
-- **Static FX Rates**: Fixed conversion rates (1 USD = 149.25 KES, 1 USD = 1670 NGN, 1 KES = 11.2 NGN)
-- **No Spreads**: Direct multiplication without banking fees or currency margins
-- **Bi-directional**: Supports conversions in both currency directions
-
-### **Technical Architecture**  
-- **In-Memory Storage**: All account balances and transactions stored in React state (no backend database)
-- **Float Precision**: Monetary values stored as floating-point numbers with standard JavaScript precision
-- **Immediate Processing**: Non-future-dated transfers execute instantly upon submission
-
-### **Business Logic**
-- **Account Naming**: Follows Provider_Currency_Number convention for realistic account identification
-- **No Transaction Limits**: Unlimited transfer amounts and frequency (beyond balance validation)
-- **Manual Future Processing**: Scheduled transfers marked as "Scheduled" but require manual execution
-- **Same-Session Persistence**: Data persists only during browser session
-
-## **Improvements with More Time**
-
-### **Backend Infrastructure**
-- **Persistent Database**: MongoDB/PostgreSQL for permanent transaction history and account state storage
-- **Real-Time FX APIs**: Integration with live forex data providers (ForexRatesAPI, CurrencyLayer) for dynamic rates
-- **Scheduled Processing**: Automated cron jobs or task queues to execute future-dated transfers
-- **Authentication System**: User management with role-based permissions and multi-tenant support
-
-### **Advanced Analytics**
-- **Interactive Charts**: Time-series charts showing balance trends, transaction volumes, and currency exposure over time
-- **Reporting Dashboard**: Export functionality for PDF/Excel reports with custom date ranges and filters  
-- **Cash Flow Forecasting**: Predictive analytics based on historical transaction patterns
-- **Risk Management**: Alerts for large transactions, unusual patterns, or currency exposure limits
-
-### **Enterprise Features**
-- **Approval Workflows**: Multi-level approval process for transactions above defined thresholds
-- **Bulk Operations**: CSV upload functionality for processing multiple transfers simultaneously  
-- **API Integration**: RESTful APIs for integration with external banking systems and ERP platforms
-- **Audit Compliance**: Immutable transaction logs with cryptographic signatures for regulatory compliance
-
-### **Performance & Security**
-- **Rate Limiting**: API throttling and request limiting to prevent system abuse
-- **Transaction Locks**: Database-level locking to prevent race conditions in concurrent operations
-- **End-to-End Encryption**: Secure data transmission and storage for sensitive financial information
-- **Real-Time Monitoring**: System alerts for performance issues, failed transactions, and security events
+This project is a simple but realistic simulation of a treasury management system. It allows users to move funds between 10 virtual accounts, each using one of three currencies: KES, USD, or NGN. The goal was to mimic what treasury teams do daily — tracking balances, handling transfers, converting currencies, and maintaining an accurate transaction history — all through a clean, user-friendly interface.
 
 ---
 
-**Live Application**: [Insert your bolt.new/v0.dev/Lovable public link here]  
-**Technology Stack**: React 18, Tailwind CSS, Lucide React Icons  
-**Deployment Ready**: Compatible with Vercel, Netlify, or any modern React hosting platform
+#### Features Implemented
+
+##### Core Functionality
+
+* **10 Predefined Accounts**
+  Each account (like Mpesa\_KES\_1 or Bank\_USD\_3) has a starting balance, a specific currency, and a name that reflects how real-world accounts are labeled.
+
+* **Transfers Between Accounts**
+  Users can transfer money from one account to another, with checks to ensure the source account has enough funds. There's also an optional note field for context.
+
+* **Currency Conversion**
+  When transferring between different currencies, the app automatically applies a static exchange rate to handle the conversion.
+
+* **Transaction Logging**
+  Every successful transfer is recorded in a log, with all relevant details: from/to accounts, currency, amount, date, and any notes.
+
+##### Additional Enhancements
+
+* **Dashboard View**
+  An overview screen shows total balances by currency and summary statistics, giving a snapshot of account activity.
+
+* **Sidebar Navigation**
+  The app includes a sidebar with links to different views: Dashboard, Accounts, Transfers, and Settings.
+
+* **Filters for Logs**
+  Users can filter the transaction history by account or currency to find specific transactions faster.
+
+* **Scheduled Transfers (UI Only)**
+  The form allows users to pick a future date, and transfers marked this way show up in the log as "Scheduled" — though they aren’t processed automatically.
+
+* **Dark and Light Mode**
+  Users can toggle between dark and light themes for better comfort and accessibility.
+
+---
+
+#### Assumptions
+
+##### Exchange Rates
+
+* The app uses fixed conversion rates:
+
+  * 1 USD = 149.25 KES
+  * 1 USD = 1670 NGN
+  * 1 KES = 11.2 NGN
+* No currency spread or fees are included.
+* Conversions work both ways between any supported currencies.
+
+##### Technical Choices
+
+* All data (accounts and transactions) is stored in React state — no backend or database was used.
+* Transfer logic executes instantly unless marked as "scheduled."
+* Monetary values are handled using JavaScript numbers, which may not be fully precise at large scale.
+* Data resets when the page reloads.
+
+##### Business Logic
+
+* Account names follow a consistent pattern: `Provider_Currency_ID`.
+* No upper limit is enforced on transaction size — only the available balance matters.
+* Future-dated transfers aren’t automatically triggered; they’re labeled but require manual handling.
+* Data only lasts as long as the browser session.
+
+---
+
+#### What I Would Improve With More Time
+
+##### Backend Functionality
+
+* Add a real database (like PostgreSQL or MongoDB) to persist transactions and account balances.
+* Connect to a live FX API for up-to-date conversion rates.
+* Implement automatic processing for scheduled transfers using background jobs.
+* Add user authentication and role-based permissions.
+
+##### Advanced Insights
+
+* Include interactive charts showing trends over time (e.g., balance history, currency movement).
+* Let users export transaction reports to PDF or Excel.
+* Add predictive tools to forecast future cash flow based on trends.
+* Build a risk alert system for suspicious transactions
+
+##### Enterprise Features
+
+* Introduce approval flows for large or sensitive transfers.
+* Allow bulk uploads of transfers via CSV.
+* Build APIs to integrate with banks or ERP systems.
+* Improve compliance by making the transaction log immutable and cryptographically secure.
+
+##### Performance and Security
+
+* Add rate limiting to prevent abuse.
+* Use transaction locks to avoid issues with simultaneous transfers.
+* Secure all data in transit and at rest.
+* Monitor for real-time system issues and transaction errors.
+
+---
+
+- **Live Demo Link**: https://niobi-challange.vercel.app/ 
+- **Built With**: React 19, Tailwind CSS v4
+- **Ready to Deploy**: Works on  Vercel 
+
